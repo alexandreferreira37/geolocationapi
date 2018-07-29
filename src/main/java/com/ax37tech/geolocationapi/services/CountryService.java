@@ -22,7 +22,7 @@ public class CountryService {
 	@Autowired
 	private CountryRepository repo;
 	
-	public Country find(Integer id) {
+	public Country find(Long id) {
 		Optional<Country> obj = repo.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
 				"Objeto não encontrado! Id: " + id + ", Tipo: " + Country.class.getName()));
@@ -39,7 +39,7 @@ public class CountryService {
 		return repo.save(newObj);
 	}
 	
-	public void delete(Integer id) {
+	public void delete(Long id) {
 		find(id);
 		try {
 			repo.deleteById(id);

@@ -1,11 +1,16 @@
 package com.ax37tech.geolocationapi.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Country implements Serializable{	
@@ -13,23 +18,27 @@ public class Country implements Serializable{
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Integer id;
+	private Long id;
 	private String name;
+	
+	@JsonIgnore
+	@OneToMany(mappedBy = "country")
+	private List<State> states = new ArrayList<>();
 	
 	public Country() {
 		
 	}
 	
-	public Country(Integer id, String name) {
+	public Country(Long id, String name) {
 		super();
 		this.id = id;
 		this.name = name;
 	}
 	
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 	public String getName() {
@@ -37,6 +46,15 @@ public class Country implements Serializable{
 	}
 	public void setName(String name) {
 		this.name = name;
+	}
+	
+	
+	public List<State> getStates() {
+		return states;
+	}
+
+	public void setStates(List<State> states) {
+		this.states = states;
 	}
 
 	@Override
